@@ -16,6 +16,7 @@ class App extends React.Component {
 
     this.updateItem = this.updateItem.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // create a function to handle changes to the item
@@ -28,6 +29,19 @@ class App extends React.Component {
     this.setState({quantity: event.target.value});
   }
 
+  // create a function that handles clicks
+  handleClick(event) {
+    event.preventDefault();
+    this.setState({
+      // var newObject = {name:___, quantity:____};
+      // data: this.state.groceriesData.concat(item);
+      data: [{name: this.state.item, quantity: this.state.quantity}, ...this.state.data],
+      item: '',
+      quantity: ''
+    })
+  };
+  // groceriesData: [...this.state.groceriesData, newItem]
+  // groceriesData: [newItem, ...this.state.groceriesData]
 
   // create an event handler to trigger a state change
 
@@ -45,7 +59,7 @@ class App extends React.Component {
           <label> Quantity
             <input name="quantity" value = {this.state.quantity} onChange = {this.updateQuantity} />
           </label>
-          <button onClick={() => console.log('I was clicked!')}>Add Grocery</button>
+          <button onClick={this.handleClick}>Add Grocery</button>
         </form>
         <GroceryList groceriesData = {this.state.data}/>
       </div>
